@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Book_App.Models.BookVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Your Collection</h1>
+<p>
+    <a class="btn btn-success" asp-action="Create">Add New</a>
+</p>
+<table id="tblData" class="table table-hover table-responsive-sm">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IsFavourite)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="cursor-row">
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @if (item.IsFavourite)
+                    {
+                        <p><i class="fas fa-star text-warning"></i></p>
+                    }
+                    else
+                    {
+                        <i class="far fa-star"></i>
+                    }
+
+                </td>
+                <td>
+                    <a class="text-dark py-5" href="@item.Link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+
+                <td>
+                    <a class="text-dark py-5" href="@item.Link"  target="_blank">@Html.DisplayFor(modelItem => item.Author).</a>
+                </td>
+
+
+                <td>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="btn btn-block btn-outline-dark" asp-action="Details" asp-route-id="@item.Id">Read <i class="fas fa-book-open"></i></a>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="btn btn-block btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Details <i class="fas fa-book"></i></a>
+                        </div>
+                        <div class="col-md-3">
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                <button class="btn btn-block btn-outline-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete <i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

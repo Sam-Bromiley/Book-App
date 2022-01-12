@@ -1,0 +1,88 @@
+﻿@model Book_App.Models.BookVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <h1>
+        Edit @Model.Name
+        @if (Model.IsFavourite)
+        {
+            <i class="fas fa-star text-warning"></i>
+        }
+
+    </h1>
+    <a class="btn btn-outline-dark ml-auto" asp-action="Details" asp-route-id="@Model.Id"><i class="fas fa-book-open"></i> Read</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+
+            <div class="form-group form-check ">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFavourite" /> @Html.DisplayNameFor(model => model.IsFavourite)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control col-md-4" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control  col-md-4" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label"></label>
+                <input asp-for="Link" class="form-control col-md-4" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            
+            @*<div class="form-group">
+            <label asp-for="Text" class="control-label"></label>
+            <p class="col-12">@Model.Text</p>
+        </div>*@
+
+
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <textarea asp-for="Text" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="DateAdded" class="control-label"></label>
+                <p>@Model.DateAdded</p>
+                @*<input asp-for="DateAdded" class="form-control col-md-4" />*@
+                @*<span asp-validation-for="DateAdded" class="text-danger"></span>*@
+            </div>
+
+
+
+
+            <div class="form-group">
+                <a class="btn btn-outline-dark" asp-action="Details" asp-route-id="@Model.Id"><i class="fas fa-book-open"></i> Read</a>
+                <input type="submit" value="Save Changes" class="btn btn-outline-success" />
+                <a class="btn btn-outline-info" asp-action="Index"><i class="fas fa-list-ul"></i> Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <form>
+            <button id="top-button" class="btn btn-outline-info fs-3 me-md-2" onclick='window.scrollTo(0,0)'><i class="fas fa-arrow-up"></i></button>
+        </form>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
